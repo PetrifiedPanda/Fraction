@@ -40,11 +40,11 @@ class Fraction {
     Fraction operator*(int num) const;
     Fraction operator/(int num) const;
 
-    void reduce();
-    Fraction reduced() const;
-
     template <typename FloatType>
     FloatType approximate() const {
         return numerator_ / static_cast<FloatType>(denominator_);
     }
+
+   private:
+    void reduce();
 };

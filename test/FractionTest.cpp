@@ -58,19 +58,11 @@ TEST(FractionTests, Comparision) {
 }
 
 TEST(FractionTests, Reduce) {
-    Fraction result = Fraction(-1000, 500).reduced();
+    Fraction result(-1000, 500);
     EXPECT_EQ(result.numerator(), -2);
     EXPECT_EQ(result.denominator(), 1);
 
-    result.reduce();
-    EXPECT_EQ(result.numerator(), -2);
-    EXPECT_EQ(result.denominator(), 1);
-
-    result = Fraction(7, 28).reduced();
-    EXPECT_EQ(result.numerator(), 1);
-    EXPECT_EQ(result.denominator(), 4);
-
-    result.reduce();
+    result = Fraction(7, 28);
     EXPECT_EQ(result.numerator(), 1);
     EXPECT_EQ(result.denominator(), 4);
 }

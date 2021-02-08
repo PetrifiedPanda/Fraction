@@ -24,6 +24,7 @@ int lcm(int a, int b) {
 Fraction::Fraction(int counter, int denominator) : numerator_(counter), denominator_(denominator) {
     if (denominator == 0)
         throw std::runtime_error("Denominator may not be 0");
+    reduce();
 }
 
 Fraction::Fraction(int num) : numerator_(num), denominator_(1) {}
@@ -73,6 +74,7 @@ Fraction& Fraction::operator+=(const Fraction& other) {
     int dLcm = lcm(denominator_, other.denominator_);
     numerator_ = numerator_ * (dLcm / denominator_) + other.numerator_ * (dLcm / other.denominator_);
     denominator_ = dLcm;
+    reduce();
 
     return *this;
 }
@@ -81,6 +83,7 @@ Fraction& Fraction::operator-=(const Fraction& other) {
     int dLcm = lcm(denominator_, other.denominator_);
     numerator_ = numerator_ * (dLcm / denominator_) - other.numerator_ * (dLcm / other.denominator_);
     denominator_ = dLcm;
+    reduce();
 
     return *this;
 }
@@ -88,6 +91,7 @@ Fraction& Fraction::operator-=(const Fraction& other) {
 Fraction& Fraction::operator*=(const Fraction& other) {
     numerator_ *= other.numerator_;
     denominator_ *= other.denominator_;
+    reduce();
 
     return *this;
 }
@@ -95,6 +99,7 @@ Fraction& Fraction::operator*=(const Fraction& other) {
 Fraction& Fraction::operator/=(const Fraction& other) {
     numerator_ *= other.denominator_;
     denominator_ *= other.numerator_;
+    reduce();
 
     return *this;
 }
@@ -102,24 +107,28 @@ Fraction& Fraction::operator/=(const Fraction& other) {
 
 Fraction& Fraction::operator+=(int num) {
     numerator_ = numerator_ + num * denominator_;
+    reduce();
 
     return *this;
 }
 
 Fraction& Fraction::operator-=(int num) {
     numerator_ = numerator_ - num * denominator_;
+    reduce();
 
     return *this;
 }
 
 Fraction& Fraction::operator*=(int num) {
     numerator_ *= num;
+    reduce();
 
     return *this;
 }
 
 Fraction& Fraction::operator/=(int num) {
     denominator_ *= num;
+    reduce();
 
     return *this;
 }
@@ -182,10 +191,4 @@ void Fraction::reduce() {
     int div = gcd(numerator_, denominator_);
     numerator_ /= div;
     denominator_ /= div;
-}
-
-Fraction Fraction::reduced() const {
-    Fraction result(*this);
-    result.reduce();
-    return result;
 }
