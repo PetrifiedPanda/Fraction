@@ -1,6 +1,7 @@
 #include "Fraction.h"
 
 #include <algorithm>
+#include <stdexcept>
 
 int gcd(int a, int b) {
     a = abs(a);
